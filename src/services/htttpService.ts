@@ -1,7 +1,7 @@
 import axios, { AxiosResponse } from 'axios';
 
 export const axiosInstance = axios.create({
-  baseURL: `${process.env.REACT_APP_API_URL}`,
+  baseURL: import.meta.env.VITE_TODO_API_URL,
   headers: {
     'Content-Type': 'application/json',
   },
