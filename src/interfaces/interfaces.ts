@@ -14,7 +14,7 @@ export interface IGetTodosResponse {
 }
 
 export interface IGetTodoResponse extends Omit<IGetTodosResponse, 'todos'> {
-    todo: ITodo;
+    todo: ITodo | null;
 }
 
 export interface IGetTodosPromise {
@@ -22,6 +22,6 @@ export interface IGetTodosPromise {
 }
 
 export interface IGetTodoPromise {
-    data: ITodo[];
+    data: ITodo;
 }
 

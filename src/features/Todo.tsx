@@ -1,7 +1,7 @@
 import { useEffect } from 'react';
 import { Sheet} from '@mui/joy';
 import { styled } from '@mui/joy/styles';
-import { getTodos } from '../businessLogic/todo';
+import { getTodos, deleteTodo } from '../businessLogic/todo';
 
 const Container = styled(Sheet)({
     display: 'flex',
@@ -20,6 +20,7 @@ export const Todo = () => {
         };
 
         getData();
+        deleteTodo("664e0e8248860eaba1be27f3");
     });
 
     return (

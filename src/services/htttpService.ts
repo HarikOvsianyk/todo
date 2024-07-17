@@ -26,12 +26,17 @@ export class HTTPService {
       });
   }
 
-  static patch<T = never, R = AxiosResponse<T>>(path: string, data: T): Promise<R> {
+  static delete(path = ''): Promise<AxiosResponse> {
     return axiosInstance
-      .patch(`${path}`, data)
-      .then((response: AxiosResponse) => response.data)
+      .delete(`${path}`)
+      .then((response: AxiosResponse) => {
+        console.log(`Deleted todo ${response.data}`);
+        return response; 
+      })
       .catch(err => {
-        throw new Error(err);
+        console.error(err);
+        return Promise.reject(err);
       });
   }
+  
 }

@@ -56,14 +56,17 @@ module.exports = function (app) {
         }
     });
 
-    app.delete('/api/todo', function (req, res) {
-        Todos.findByIdAndDelete(req.body.id)
+    app.delete('/api/todo/:id', function (req, res) {
+        Todos.findByIdAndDelete(req.params.id)
         .then(() => {
+            console.log(req);
             res.send('Success');
         })
         .catch((err) => {
-            if (err) throw err;
-        })
-    })
+            console.error(err); 
+            res.status(500).send('Internal Server Error');
+        });
+    });
+    
 }
 
