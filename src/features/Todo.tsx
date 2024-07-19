@@ -2,7 +2,7 @@ import { FunctionComponent, useEffect, useState } from 'react';
 import { Sheet} from '@mui/joy';
 import { styled } from '@mui/joy/styles';
 import { getTodos } from '../businessLogic/todo';
-import { Logo, List } from '../components';
+import { Logo, TodoInput, List } from '../components';
 import { ITodo } from '../interfaces';
 
 const Container = styled(Sheet)({
@@ -28,6 +28,7 @@ export const Todo:FunctionComponent = () => {
     return (
         <Container variant='plain'>
             <Logo/>
+            <TodoInput />
             <List todos={todosList} />
         </Container>
     )

@@ -13,6 +13,7 @@ const TodoContainer = styled(Card)({
     alignItems: 'center',
     justifyContent: 'space-between',
     width: '100%',
+    margin: '10px'
 });
 
 const CheckIcon = styled(CheckCircle)({
