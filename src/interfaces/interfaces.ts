@@ -1,7 +1,7 @@
 import { EStatus } from './enums';
 
 export interface ITodo {
-    username: string;
+    username?: string;
     todo: string;
     isDone: boolean;
     hasAttachment?: boolean;
@@ -23,5 +23,10 @@ export interface IGetTodosPromise {
 
 export interface IGetTodoPromise {
     data: ITodo;
+}
+
+export interface ITabs {
+    tabsList: string[];
+    tabsContent: ITodo[];
 }
 

@@ -1,10 +1,13 @@
-import { useEffect } from 'react';
+import { FunctionComponent, useEffect, useState } from 'react';
 import { Sheet} from '@mui/joy';
 import { styled } from '@mui/joy/styles';
-import { getTodos, deleteTodo } from '../businessLogic/todo';
+import { getTodos } from '../businessLogic/todo';
+import { Logo, List } from '../components';
+import { ITodo } from '../interfaces';
 
 const Container = styled(Sheet)({
     display: 'flex',
+    flexDirection: 'column',
     alignItems: 'center',
     justifyContent: 'center',
     padding: '20px',
@@ -12,20 +15,20 @@ const Container = styled(Sheet)({
     height: '90vh'
 })
 
-export const Todo = () => {
+export const Todo:FunctionComponent = () => {
+    const [todosList, setTodosList] = useState<ITodo[]>([]);
     useEffect(() => {
         const getData = async () => {
             const {todos} = await getTodos('test');
-            console.log(todos)
+            todos !== null && setTodosList(todos);
         };
-
         getData();
-        deleteTodo("664e0e8248860eaba1be27f3");
-    });
+    }, []);
 
     return (
         <Container variant='plain'>
-            <h1>Hello world</h1>
+            <Logo/>
+            <List todos={todosList} />
         </Container>
     )
 };
