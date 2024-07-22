@@ -1,7 +1,8 @@
-import { FunctionComponent, useEffect, useState } from 'react';
-import { Sheet} from '@mui/joy';
+import { FunctionComponent } from 'react';
+import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
+import { Sheet } from '@mui/joy';
 import { styled } from '@mui/joy/styles';
-import { getTodos } from '../businessLogic/todo';
+import { getTodos, createTodo, deleteTodo } from '../businessLogic/todo';
 import { Logo, TodoInput, List } from '../components';
 import { ITodo } from '../interfaces';
 
@@ -15,21 +16,38 @@ const Container = styled(Sheet)({
     height: '90vh'
 })
 
-export const Todo:FunctionComponent = () => {
-    const [todosList, setTodosList] = useState<ITodo[]>([]);
-    useEffect(() => {
-        const getData = async () => {
-            const {todos} = await getTodos('test');
-            todos !== null && setTodosList(todos);
-        };
-        getData();
-    }, []);
 
+export const Todo: FunctionComponent = () => {
+    const queryClient = useQueryClient();
+    const { data, error, isLoading } = useQuery({
+        queryKey: ['todos'],
+        queryFn: () => getTodos('test'),
+    });
+
+    const createTodoFN = useMutation({
+        mutationFn: (todo: ITodo) => createTodo(todo),
+        onSuccess: () => queryClient.invalidateQueries({queryKey: ['todos']})
+    });
+
+    const deleteTodoFN = useMutation({
+        mutationFn: (id: string) => deleteTodo(id),
+        onSuccess: () => queryClient.invalidateQueries({queryKey: ['todos']})
+    });
+
+    if (isLoading) {
+        return <div>Loading...</div>;
+    }
+
+    if (error instanceof Error) {
+        return <div>Error: {error.message}</div>;
+    }
+
+    const todos = data?.todos ?? [];
     return (
         <Container variant='plain'>
-            <Logo/>
-            <TodoInput />
-            <List todos={todosList} />
+            <Logo />
+            <TodoInput createTodo={createTodoFN.mutate}/>
+            <List todos={todos} deleteTodo={deleteTodoFN.mutate}/>
         </Container>
     )
 };

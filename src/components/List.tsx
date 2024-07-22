@@ -11,11 +11,11 @@ const ListContainer = styled(Sheet)({
     width: '20%'
 });
 
-export const List:FunctionComponent<{todos: ITodo[]}> = ({todos}) => {
+export const List:FunctionComponent<{todos: ITodo[], deleteTodo: (id: string) => void}> = ({todos, deleteTodo}) => {
     return (
         <ListContainer>
-            {todos.map(({todo, isDone}, index) => (
-                <TodoCard key={index} todo={todo} isDone={isDone}/>
+            {todos.map((todo, index) => (
+                <TodoCard key={index} cardData={todo} deleteTodo={deleteTodo}/>
             ))}
         </ListContainer>
     )

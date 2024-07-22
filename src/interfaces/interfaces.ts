@@ -1,6 +1,7 @@
 import { EStatus } from './enums';
 
 export interface ITodo {
+    _id?: string,
     username?: string;
     todo: string;
     isDone: boolean;

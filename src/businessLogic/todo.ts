@@ -1,5 +1,5 @@
-import { getTodos as getTodosAPI, getTodo as getTodoAPI,deleteTodo as deleteTodoAPI } from "../api";
-import { IGetTodosResponse, IGetTodoResponse, EStatus } from "../interfaces";
+import { getTodos as getTodosAPI, getTodo as getTodoAPI,deleteTodo as deleteTodoAPI, createTodo as createTodoAPI } from "../api";
+import { IGetTodosResponse, IGetTodoResponse, EStatus, ITodo } from "../interfaces";
 
 export const getTodos = async (username: string): Promise<IGetTodosResponse> => {
     try {
@@ -40,6 +40,25 @@ export const getTodo = async (id: string): Promise<IGetTodoResponse> => {
             todo: data || [],
             status: EStatus.success || EStatus.empty,
             error: null
+        }
+    } catch (err) {
+        const error = err as Error;
+        return {
+            todo: null,
+            status: EStatus.error,
+            error: error.message
+        }
+    }
+}
+
+export const createTodo = async (todo: ITodo): Promise<IGetTodoResponse> => {
+    try {
+        const { data } = await createTodoAPI(todo);
+
+        return {
+            todo: data,
+            status: EStatus.success || EStatus.empty,
+            error: null,
         }
     } catch (err) {
         const error = err as Error;
