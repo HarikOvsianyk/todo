@@ -21,7 +21,7 @@ export const Todo: FunctionComponent = () => {
     const queryClient = useQueryClient();
     const { data, error, isLoading } = useQuery({
         queryKey: ['todos'],
-        queryFn: () => getTodos('test'),
+        queryFn: () => getTodos(),
     });
 
     const createTodoFN = useMutation({

@@ -26,17 +26,15 @@ export class HTTPService {
       });
   }
 
-  static delete(path = ''): Promise<AxiosResponse> {
+  static delete<T = never>(path: string): Promise<AxiosResponse<T>> {
     return axiosInstance
-      .delete(`${path}`)
-      .then((response: AxiosResponse) => {
-        console.log(`Deleted todo ${response.data}`);
-        return response; 
+      .delete<T>(path)
+      .then((response: AxiosResponse<T>) => {
+        return response;
       })
       .catch(err => {
         console.error(err);
         return Promise.reject(err);
       });
   }
-  
 }

@@ -22,7 +22,6 @@ export const TodoInput: FunctionComponent<{createTodo: (todo: ITodo) => void}> =
     const handleSubmit = (event: FormEvent<HTMLFormElement>) => {
         event.preventDefault();
         createTodo({
-            username: 'test',
             todo: value,
             isDone: false,
             hasAttachment: false,

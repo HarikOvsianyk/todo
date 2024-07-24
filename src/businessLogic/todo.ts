@@ -1,11 +1,9 @@
 import { getTodos as getTodosAPI, getTodo as getTodoAPI,deleteTodo as deleteTodoAPI, createTodo as createTodoAPI } from "../api";
-import { IGetTodosResponse, IGetTodoResponse, EStatus, ITodo } from "../interfaces";
+import { IGetTodosResponse, IGetTodoResponse, IDeleteTodoResponse, EStatus, ITodo } from "../interfaces";
 
-export const getTodos = async (username: string): Promise<IGetTodosResponse> => {
+export const getTodos = async (): Promise<IGetTodosResponse> => {
     try {
-        const { data } = await getTodosAPI(
-            username
-        );
+        const { data } = await getTodosAPI();
 
         if (data?.length) {
             return {
@@ -70,21 +68,17 @@ export const createTodo = async (todo: ITodo): Promise<IGetTodoResponse> => {
     }
 }
 
-export const deleteTodo = async (id: string): Promise<IGetTodoResponse> => {
+export const deleteTodo = async (todoId: string): Promise<IDeleteTodoResponse> => {
     try {
-        const { data } = await deleteTodoAPI(
-            id
-        );
+        await deleteTodoAPI(todoId);
 
         return {
-            todo: data || [],
-            status: EStatus.success || EStatus.empty,
-            error: null
+            status: EStatus.success,
+            error: null,
         }
     } catch (err) {
         const error = err as Error;
         return {
-            todo: null,
             status: EStatus.error,
             error: error.message
         }

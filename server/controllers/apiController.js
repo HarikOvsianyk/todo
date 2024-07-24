@@ -5,8 +5,8 @@ module.exports = function (app) {
     app.use(bodyParser.json());
     app.use(bodyParser.urlencoded({ extended: true }));
 
-    app.get('/api/todos/:uname', function (req, res) {
-        Todos.find({ username: req.params.uname })
+    app.get('/api/todos', function (req, res) {
+        Todos.find({})
             .then((todos) => {
                   res.send(todos);
             })

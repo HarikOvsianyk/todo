@@ -37,7 +37,7 @@ export const TodoCard: FunctionComponent<{cardData: ITodo, deleteTodo: (id: stri
     const [done, setDone] = useState<boolean>(isDone);
     return (
         <TodoContainer>
-            <Button variant='outlined' onClick={() => setDone(!done)}>{done ? <CheckIcon /> : <EmptyIcon />}</Button >{todo}<Button variant='outlined' onClick={() => deleteTodo(_id)}><DeleteIcon /></Button>
+            <Button variant='outlined' onClick={() => setDone(!done)}>{done ? <CheckIcon /> : <EmptyIcon />}</Button >{todo}<Button variant='outlined' onClick={() => deleteTodo(_id as string)}><DeleteIcon /></Button>
         </TodoContainer>
     )
 }
