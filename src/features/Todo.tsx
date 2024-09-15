@@ -2,7 +2,7 @@ import { FunctionComponent } from 'react';
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
 import { Sheet } from '@mui/joy';
 import { styled } from '@mui/joy/styles';
-import { getTodos, createTodo, deleteTodo } from '../businessLogic/todo';
+import { getTodos, createTodo, updateTodo ,deleteTodo } from '../businessLogic/todo';
 import { Logo, TodoInput, List } from '../components';
 import { ITodo } from '../interfaces';
 
@@ -29,6 +29,11 @@ export const Todo: FunctionComponent = () => {
         onSuccess: () => queryClient.invalidateQueries({queryKey: ['todos']})
     });
 
+    const updateTodoFN = useMutation({
+        mutationFn: ({ id, todo }: { id: string, todo: Partial<ITodo> }) => updateTodo(id, todo),
+        onSuccess: () => queryClient.invalidateQueries({queryKey: ['todos']})
+    });
+
     const deleteTodoFN = useMutation({
         mutationFn: (id: string) => deleteTodo(id),
         onSuccess: () => queryClient.invalidateQueries({queryKey: ['todos']})
@@ -47,7 +52,7 @@ export const Todo: FunctionComponent = () => {
         <Container variant='plain'>
             <Logo />
             <TodoInput createTodo={createTodoFN.mutate}/>
-            <List todos={todos} deleteTodo={deleteTodoFN.mutate}/>
+            <List todos={todos} deleteTodo={deleteTodoFN.mutate} updateTodo={updateTodoFN.mutate}/>
         </Container>
     )
 };

@@ -56,6 +56,23 @@ module.exports = function (app) {
         }
     });
 
+    app.patch('/api/todo/:id', (req, res) => {
+        const todoId = req.params.id;
+        const updateData = req.body;
+
+        Todos.findByIdAndUpdate(todoId, updateData, { new: true, runValidators: true })
+            .then((updatedTodo) => {
+                if (!updatedTodo) {
+                    return res.status(404).send('Todo not found');
+                }
+                res.send('Success');
+            })
+            .catch((err) => {
+                console.error(err);
+                res.status(500).send('Server error');
+            });
+    });
+
     app.delete('/api/todo/:id', function (req, res) {
         Todos.findByIdAndDelete(req.params.id)
         .then(() => {

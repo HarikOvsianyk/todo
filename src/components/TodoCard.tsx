@@ -33,11 +33,18 @@ const DeleteIcon = styled(Delete)({
 
 
 
-export const TodoCard: FunctionComponent<{cardData: ITodo, deleteTodo: (id: string) =>void}> = ({cardData: {todo, isDone, _id}, deleteTodo}) => {
+export const TodoCard: FunctionComponent<{cardData: ITodo, deleteTodo: (id: string) =>void, updateTodo: (params: { id: string, todo: Partial<ITodo> }) => void}> = ({cardData: {todo, isDone, _id}, deleteTodo, updateTodo}) => {
     const [done, setDone] = useState<boolean>(isDone);
+    const changeTodo = (id: string) => {
+        setDone(prevDone => {
+            const newDone = !prevDone;
+            updateTodo({id, todo:{ isDone: newDone }});
+            return newDone;
+        });
+    };
     return (
         <TodoContainer>
-            <Button variant='outlined' onClick={() => setDone(!done)}>{done ? <CheckIcon /> : <EmptyIcon />}</Button >{todo}<Button variant='outlined' onClick={() => _id && deleteTodo(_id)}><DeleteIcon /></Button>
+            <Button variant='outlined' onClick={() => _id && changeTodo(_id)}>{done ? <CheckIcon /> : <EmptyIcon />}</Button >{todo}<Button variant='outlined' onClick={() => deleteTodo(_id!)}><DeleteIcon /></Button>
         </TodoContainer>
     )
 }

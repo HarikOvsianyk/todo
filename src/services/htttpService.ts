@@ -26,6 +26,15 @@ export class HTTPService {
       });
   }
 
+  static patch<T = never, R = AxiosResponse<T>>(path: string, data: T): Promise<R> {
+    return axiosInstance
+      .patch(`${path}`, data)
+      .then((response: AxiosResponse) => response.data)
+      .catch(err => {
+        throw new Error(err);
+      });
+  }
+
   static delete<T = never>(path: string): Promise<AxiosResponse<T>> {
     return axiosInstance
       .delete<T>(path)

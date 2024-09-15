@@ -12,6 +12,11 @@ export const createTodo = (
     todo: ITodo
 ): Promise<IGetTodoPromise> => HTTPService.post(`${PATH.todo}`, todo);
 
+export const updateTodo = (
+    id: string,
+    todo: Partial<ITodo>
+): Promise<IGetTodoPromise> => HTTPService.patch(`${PATH.todo}${id}`, todo);
+
 export const deleteTodo = (
     id: string
 ): Promise<IDeleteTodoPromise> => HTTPService.delete(`${PATH.todo}${id}`)
