@@ -1,3 +1,4 @@
+import { toast } from 'react-toastify';
 import { getTodos as getTodosAPI, getTodo as getTodoAPI,deleteTodo as deleteTodoAPI, createTodo as createTodoAPI, updateTodo as updateTodoAPI } from "../api";
 import { IGetTodosResponse, IGetTodoResponse, IDeleteTodoResponse, EStatus, ITodo } from "../interfaces";
 
@@ -20,6 +21,7 @@ export const getTodos = async (): Promise<IGetTodosResponse> => {
         }
     } catch (err) {
         const error = err as Error;
+        toast.error(`${error.message}`);
         return {
             todos: null,
             status: EStatus.error,
@@ -41,6 +43,7 @@ export const getTodo = async (id: string): Promise<IGetTodoResponse> => {
         }
     } catch (err) {
         const error = err as Error;
+        toast.error(`${error.message}`);
         return {
             todo: null,
             status: EStatus.error,
@@ -60,6 +63,7 @@ export const createTodo = async (todo: ITodo): Promise<IGetTodoResponse> => {
         }
     } catch (err) {
         const error = err as Error;
+        toast.error(`${error.message}`);
         return {
             todo: null,
             status: EStatus.error,
@@ -82,6 +86,7 @@ export const updateTodo = async (
         };
     } catch (err) {
         const error = err as Error;
+        toast.error(`${error.message}`);
         return {
             todo: null,
             status: EStatus.error,
@@ -101,6 +106,7 @@ export const deleteTodo = async (todoId: string): Promise<IDeleteTodoResponse> =
         }
     } catch (err) {
         const error = err as Error;
+        toast.error(`${error.message}`);
         return {
             status: EStatus.error,
             error: error.message

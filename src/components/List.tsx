@@ -8,7 +8,10 @@ const ListContainer = styled(Sheet)({
     display: 'flex',
     flexDirection: 'column',
     alignItems: 'center',
-    width: '20%'
+    width: '100%',
+    '@media (min-width: 1440px)': {
+        width: '30%',
+      },
 });
 
 export const List:FunctionComponent<{todos: ITodo[], deleteTodo: (id: string) => void, updateTodo: (params: { id: string, todo: Partial<ITodo> }) => void}> = ({todos, deleteTodo, updateTodo}) => {

@@ -8,13 +8,21 @@ import { ITodo } from '../interfaces';
 const InputContainer = styled(Sheet)({
     display: 'flex',
     justifyContent: 'center',
-    width: '25%',
+    width: '100%',
+    '@media (min-width: 1440px)': {
+        width: '30%',
+      },
     margin: '20px 0 20px 0'
-})
+});
+
+const Form = styled('form')({
+    width: '100%'
+});
+
 const TextInput = styled(Input)({
     display: 'flex',
     width: '100%',
-})
+});
 
 export const TodoInput: FunctionComponent<{createTodo: (todo: ITodo) => void}> = ({createTodo}) => {
     const [value, setValue] = useState<string>('');
@@ -30,7 +38,7 @@ export const TodoInput: FunctionComponent<{createTodo: (todo: ITodo) => void}> =
     };
     return (
         <InputContainer>
-            <form onSubmit={handleSubmit}>
+            <Form onSubmit={handleSubmit}>
                 <TextInput
                     placeholder='What do you need to do?'
                     startDecorator={<Add />}
@@ -38,7 +46,7 @@ export const TodoInput: FunctionComponent<{createTodo: (todo: ITodo) => void}> =
                     value={value}
                     onChange={(e) => setValue(e.target.value)}
                 />
-            </form>
+            </Form>
         </InputContainer>
     )
 }

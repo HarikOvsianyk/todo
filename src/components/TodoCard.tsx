@@ -12,8 +12,9 @@ const TodoContainer = styled(Card)({
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'space-between',
-    width: '100%',
-    margin: '10px'
+    width: '90%',
+    padding: '10px',
+    margin: '10px 0 10px 0'
 });
 
 const CheckIcon = styled(CheckCircle)({
